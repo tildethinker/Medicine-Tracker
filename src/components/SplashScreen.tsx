@@ -26,7 +26,7 @@ export default function SplashScreen({ onFinish }: SplashScreenProps) {
     <View style={styles.container}>
       <View style={styles.logoContainer}>
         <View style={styles.iconCircle}>
-          <Pill size={60} color="#3B82F6" strokeWidth={2.5} />
+          <Pill size={60} />
         </View>
         <Text style={styles.appName}>Medicine Tracker</Text>
         <Text style={styles.tagline}>Never miss a dose</Text>

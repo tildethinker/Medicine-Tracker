@@ -261,7 +261,7 @@ export default function HistoryReports() {
           </View>
         </View>
         <View style={styles.adherenceContainer}>
-          <TrendingUp size={32} color={stats.adherenceRate >= 80 ? '#10B981' : '#F59E0B'} />
+          <TrendingUp size={32} />
           <View>
             <Text style={[styles.adherenceValue, { color: stats.adherenceRate >= 80 ? '#10B981' : '#F59E0B' }]}>
               {stats.adherenceRate}%
@@ -355,15 +355,15 @@ export default function HistoryReports() {
           Export & Share
         </Text>
         <TouchableOpacity style={styles.exportButton} onPress={handleExportCSV}>
-          <Download size={20} color="#3B82F6" />
+          <Download size={20} />
           <Text style={styles.exportButtonText}>Export as CSV</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.exportButton} onPress={handleExportPDF}>
-          <Download size={20} color="#3B82F6" />
+          <Download size={20} />
           <Text style={styles.exportButtonText}>Export as PDF</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.exportButton} onPress={handleShareReport}>
-          <Share2 size={20} color="#3B82F6" />
+          <Share2 size={20} />
           <Text style={styles.exportButtonText}>Share Report</Text>
         </TouchableOpacity>
       </View>

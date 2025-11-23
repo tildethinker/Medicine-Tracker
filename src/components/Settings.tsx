@@ -9,6 +9,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import { useApp } from '../contexts/AppContext';
+import { useAuth } from '../contexts/AuthContext';
 import {
   Settings as SettingsIcon,
   Moon,
@@ -18,11 +19,14 @@ import {
   Upload,
   Trash2,
   Info,
+  LogOut,
+  User,
 } from 'lucide-react-native';
 
 export default function Settings() {
   const { state, updateSettings, exportData, importData } = useApp();
   const { settings } = state;
+  const { user, signOut, isAuthenticated } = useAuth();
 
   const handleExport = async () => {
     try {
@@ -94,6 +98,23 @@ export default function Settings() {
     updateSettings({ notifications: { ...settings.notifications, soundEnabled: !settings.notifications.soundEnabled } });
   };
 
+  const handleSignOut = () => {
+    Alert.alert(
+      'Sign Out',
+      'Are you sure you want to sign out? Your local data will remain on this device.',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Sign Out',
+          style: 'destructive',
+          onPress: async () => {
+            await signOut();
+          },
+        },
+      ]
+    );
+  };
+
   return (
     <ScrollView style={[styles.container, settings.darkMode && styles.darkContainer]}>
       <View style={styles.header}>
@@ -103,10 +124,41 @@ export default function Settings() {
       </View>
 
       <View style={styles.content}>
+        {/* Account Section */}
+        {isAuthenticated && (
+          <View style={[styles.section, settings.darkMode && styles.darkCard]}>
+            <View style={styles.sectionHeader}>
+              <User size={24} />
+              <Text style={[styles.sectionTitle, settings.darkMode && styles.darkText]}>
+                Account
+              </Text>
+            </View>
+
+            <View style={styles.settingRow}>
+              <View style={styles.settingInfo}>
+                <Text style={[styles.settingLabel, settings.darkMode && styles.darkText]}>
+                  Signed in as
+                </Text>
+                <Text style={[styles.settingDescription, settings.darkMode && styles.darkText]}>
+                  {user?.email}
+                </Text>
+              </View>
+            </View>
+
+            <TouchableOpacity
+              style={styles.signOutButton}
+              onPress={handleSignOut}
+            >
+              <LogOut size={20} />
+              <Text style={styles.signOutText}>Sign Out</Text>
+            </TouchableOpacity>
+          </View>
+        )}
+
         {/* Appearance */}
         <View style={[styles.section, settings.darkMode && styles.darkCard]}>
           <View style={styles.sectionHeader}>
-            <Moon size={24} color="#8B5CF6" />
+            <Moon size={24} />
             <Text style={[styles.sectionTitle, settings.darkMode && styles.darkText]}>
               Appearance
             </Text>
@@ -133,7 +185,7 @@ export default function Settings() {
         {/* Notifications */}
         <View style={[styles.section, settings.darkMode && styles.darkCard]}>
           <View style={styles.sectionHeader}>
-            <Bell size={24} color="#F59E0B" />
+            <Bell size={24} />
             <Text style={[styles.sectionTitle, settings.darkMode && styles.darkText]}>
               Notifications
             </Text>
@@ -209,7 +261,7 @@ export default function Settings() {
         {/* Time Format */}
         <View style={[styles.section, settings.darkMode && styles.darkCard]}>
           <View style={styles.sectionHeader}>
-            <Clock size={24} color="#10B981" />
+            <Clock size={24} />
             <Text style={[styles.sectionTitle, settings.darkMode && styles.darkText]}>
               Time Format
             </Text>
@@ -238,7 +290,7 @@ export default function Settings() {
         {/* Data Management */}
         <View style={[styles.section, settings.darkMode && styles.darkCard]}>
           <View style={styles.sectionHeader}>
-            <Download size={24} color="#3B82F6" />
+            <Download size={24} />
             <Text style={[styles.sectionTitle, settings.darkMode && styles.darkText]}>
               Data Management
             </Text>
@@ -248,7 +300,7 @@ export default function Settings() {
             style={styles.actionButton}
             onPress={handleExport}
           >
-            <Download size={20} color="#3B82F6" />
+            <Download size={20} />
             <View style={styles.actionInfo}>
               <Text style={[styles.actionTitle, settings.darkMode && styles.darkText]}>
                 Export Data
@@ -263,7 +315,7 @@ export default function Settings() {
             style={styles.actionButton}
             onPress={handleImport}
           >
-            <Upload size={20} color="#10B981" />
+            <Upload size={20} />
             <View style={styles.actionInfo}>
               <Text style={[styles.actionTitle, settings.darkMode && styles.darkText]}>
                 Import Data
@@ -278,7 +330,7 @@ export default function Settings() {
             style={[styles.actionButton, styles.dangerButton]}
             onPress={handleClearData}
           >
-            <Trash2 size={20} color="#EF4444" />
+            <Trash2 size={20} />
             <View style={styles.actionInfo}>
               <Text style={[styles.dangerTitle, settings.darkMode && styles.darkText]}>
                 Clear All Data
@@ -293,7 +345,7 @@ export default function Settings() {
         {/* About */}
         <View style={[styles.section, settings.darkMode && styles.darkCard]}>
           <View style={styles.sectionHeader}>
-            <Info size={24} color="#6B7280" />
+            <Info size={24} />
             <Text style={[styles.sectionTitle, settings.darkMode && styles.darkText]}>
               About
             </Text>
@@ -451,5 +503,21 @@ const styles = StyleSheet.create({
   },
   darkText: {
     color: '#F9FAFB',
+  },
+  signOutButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#FEE2E2',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    marginTop: 12,
+  },
+  signOutText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#EF4444',
+    marginLeft: 8,
   },
 });

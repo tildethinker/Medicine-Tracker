@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { AppProvider } from './src/contexts/AppContext';
+import { AuthProvider } from './src/contexts/AuthContext';
 import AppNavigator from './src/navigation/AppNavigator';
 import SplashScreen from './src/components/SplashScreen';
 import OnboardingScreen from './src/components/OnboardingScreen';
@@ -50,9 +51,11 @@ export default function App() {
   }
 
   return (
-    <AppProvider>
-      <AppNavigator />
-      <StatusBar style="auto" />
-    </AppProvider>
+    <AuthProvider>
+      <AppProvider>
+        <AppNavigator />
+        <StatusBar style="auto" />
+      </AppProvider>
+    </AuthProvider>
   );
 }

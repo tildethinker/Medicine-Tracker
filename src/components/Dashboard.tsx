@@ -177,7 +177,7 @@ export default function Dashboard() {
       {/* Weekly Adherence Chart */}
       <View style={[styles.chartCard, settings.darkMode && styles.darkCard]}>
         <View style={styles.chartHeader}>
-          <TrendingUp size={20} color="#3B82F6" />
+          <TrendingUp size={20} />
           <Text style={[styles.chartTitle, settings.darkMode && styles.darkText]}>
             7-Day Adherence Trend
           </Text>
@@ -206,7 +206,7 @@ export default function Dashboard() {
             <Text style={styles.statLabel}>Taken Today</Text>
             <Text style={styles.statValue}>{takenToday}</Text>
           </View>
-          <CheckCircle size={32} color="#10B981" />
+          <CheckCircle size={32} />
         </View>
 
         <View style={[styles.statCard, styles.skippedCard]}>
@@ -214,7 +214,7 @@ export default function Dashboard() {
             <Text style={styles.statLabel}>Skipped Today</Text>
             <Text style={styles.statValue}>{skippedToday}</Text>
           </View>
-          <XCircle size={32} color="#F59E0B" />
+          <XCircle size={32} />
         </View>
 
         <View style={[styles.statCard, styles.missedCard]}>
@@ -222,7 +222,7 @@ export default function Dashboard() {
             <Text style={styles.statLabel}>Missed Today</Text>
             <Text style={styles.statValue}>{missedToday}</Text>
           </View>
-          <AlertTriangle size={32} color="#EF4444" />
+          <AlertTriangle size={32} />
         </View>
 
         <View style={[styles.statCard, styles.adherenceCard]}>
@@ -230,7 +230,7 @@ export default function Dashboard() {
             <Text style={styles.statLabel}>Adherence Rate</Text>
             <Text style={styles.statValue}>{adherenceRate}%</Text>
           </View>
-          <TrendingUp size={32} color="#3B82F6" />
+          <TrendingUp size={32} />
         </View>
       </View>
 
@@ -238,7 +238,7 @@ export default function Dashboard() {
         {/* Upcoming Medicines */}
         <View style={[styles.sectionCard, settings.darkMode && styles.darkCard]}>
           <View style={styles.sectionHeader}>
-            <Clock size={24} color="#3B82F6" />
+            <Clock size={24} />
             <Text style={[styles.sectionTitle, settings.darkMode && styles.darkText]}>
               Next Medicine Reminder
             </Text>
@@ -246,7 +246,7 @@ export default function Dashboard() {
 
           {upcomingMedicines.length === 0 ? (
             <View style={styles.emptyState}>
-              <CheckCircle size={48} color="#10B981" />
+              <CheckCircle size={48} />
               <Text style={[styles.emptyTitle, settings.darkMode && styles.darkText]}>
                 All medicines taken for now!
               </Text>
@@ -292,7 +292,7 @@ export default function Dashboard() {
         {/* Today's Schedule */}
         <View style={[styles.sectionCard, settings.darkMode && styles.darkCard]}>
           <View style={styles.sectionHeader}>
-            <CheckCircle size={24} color="#10B981" />
+            <CheckCircle size={24} />
             <Text style={[styles.sectionTitle, settings.darkMode && styles.darkText]}>
               Today's Progress Tracker
             </Text>
@@ -314,7 +314,7 @@ export default function Dashboard() {
                 <View key={`${item.medicine.id}-${item.time}`}
                      style={[styles.scheduleItem, { backgroundColor: statusConfig.bg, borderColor: statusConfig.border }]}>
                   <View style={styles.scheduleContent}>
-                    <StatusIcon size={20} color={statusConfig.color} />
+                    <StatusIcon size={20} />
                     <View>
                       <Text style={[styles.scheduleMedicine, settings.darkMode && styles.darkText]}>
                         {item.medicine.name}
@@ -352,7 +352,7 @@ export default function Dashboard() {
 
       {totalToday === 0 && (
         <View style={[styles.emptyCard, settings.darkMode && styles.darkCard]}>
-          <Clock size={48} color="#9CA3AF" />
+          <Clock size={48} />
           <Text style={[styles.emptyCardTitle, settings.darkMode && styles.darkText]}>
             No medicines scheduled for today
           </Text>

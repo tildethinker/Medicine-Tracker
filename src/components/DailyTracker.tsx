@@ -156,7 +156,7 @@ export default function DailyTracker() {
             )}
           </View>
           <View style={styles.timeContainer}>
-            <Clock size={20} color={statusColor} />
+            <Clock size={20} />
             <Text style={[styles.time, { color: statusColor }]}>{item.time}</Text>
           </View>
         </View>
@@ -173,17 +173,17 @@ export default function DailyTracker() {
           <View style={styles.statusBadge}>
             {item.intake.status === 'taken' ? (
               <>
-                <CheckCircle size={20} color="#10B981" />
+                <CheckCircle size={20} />
                 <Text style={styles.statusText}>Taken</Text>
               </>
             ) : item.intake.status === 'skipped' ? (
               <>
-                <XCircle size={20} color="#F59E0B" />
+                <XCircle size={20} />
                 <Text style={styles.statusText}>Skipped</Text>
               </>
             ) : (
               <>
-                <XCircle size={20} color="#EF4444" />
+                <XCircle size={20} />
                 <Text style={styles.statusText}>Missed</Text>
               </>
             )}
@@ -197,21 +197,21 @@ export default function DailyTracker() {
               style={[styles.actionButton, styles.takenButton]}
               onPress={() => handleMarkStatus(item.medicine.id, item.time, 'taken')}
             >
-              <CheckCircle size={20} color="#FFF" />
+              <CheckCircle size={20} />
               <Text style={styles.buttonText}>Taken</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.actionButton, styles.skipButton]}
               onPress={() => handleMarkStatus(item.medicine.id, item.time, 'skipped')}
             >
-              <XCircle size={20} color="#FFF" />
+              <XCircle size={20} />
               <Text style={styles.buttonText}>Skip</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.actionButton, styles.noteButton]}
               onPress={() => handleAddNote(item.medicine.id, item.time)}
             >
-              <Edit size={20} color="#3B82F6" />
+              <Edit size={20} />
             </TouchableOpacity>
           </View>
         )}
@@ -245,7 +245,7 @@ export default function DailyTracker() {
       {/* Date Navigation */}
       <View style={[styles.dateNav, settings.darkMode && styles.darkCard]}>
         <TouchableOpacity onPress={() => changeDate(-1)} style={styles.navButton}>
-          <ChevronLeft size={24} color={settings.darkMode ? '#FFF' : '#000'} />
+          <ChevronLeft size={24} />
         </TouchableOpacity>
         <View style={styles.dateDisplay}>
           <Text style={[styles.dateText, settings.darkMode && styles.darkText]}>
@@ -254,7 +254,7 @@ export default function DailyTracker() {
           {isToday && <Text style={styles.todayBadge}>Today</Text>}
         </View>
         <TouchableOpacity onPress={() => changeDate(1)} style={styles.navButton}>
-          <ChevronRight size={24} color={settings.darkMode ? '#FFF' : '#000'} />
+          <ChevronRight size={24} />
         </TouchableOpacity>
       </View>
 
