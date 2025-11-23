@@ -1,7 +1,5 @@
 import { Alert } from 'react-native';
 import { Medicine, MedicineIntake, UserProfile, AppSettings } from '../types';
-import auth from '@react-native-firebase/auth';
-import firestore from '@react-native-firebase/firestore';
 
 // Define Caregiver type locally if not in main types
 interface Caregiver {
@@ -12,6 +10,23 @@ interface Caregiver {
   relationship?: string;
 }
 
+// Dynamic Firebase imports to avoid build-time errors
+let auth: any = null;
+let firestore: any = null;
+
+const loadFirebase = async () => {
+  try {
+    const authModule = await import('@react-native-firebase/auth');
+    const firestoreModule = await import('@react-native-firebase/firestore');
+    auth = authModule.default;
+    firestore = firestoreModule.default;
+    return true;
+  } catch (e) {
+    console.warn('Firebase modules not available');
+    return false;
+  }
+};
+
 /**
  * Firebase integration service
  * Provides authentication, Firestore sync, and real-time updates
@@ -20,13 +35,14 @@ interface Caregiver {
 
 export class FirebaseService {
   private static initialized = false;
+  private static firebaseLoaded = false;
 
   /**
    * Check if Firebase is available
    * In development builds with expo-dev-client, Firebase is always available
    */
   static isAvailable(): boolean {
-    return true;
+    return this.firebaseLoaded && auth !== null && firestore !== null;
   }
 
   /**
@@ -34,6 +50,14 @@ export class FirebaseService {
    */
   static async init(): Promise<void> {
     try {
+      // Try to load Firebase modules
+      this.firebaseLoaded = await loadFirebase();
+      
+      if (!this.firebaseLoaded) {
+        console.log('Firebase not available - app will work in local-only mode');
+        return;
+      }
+
       // Firebase is automatically initialized by the @react-native-firebase/app plugin
       this.initialized = true;
       console.log('Firebase service initialized successfully');
